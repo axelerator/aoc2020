@@ -1,0 +1,9 @@
+name: aoc
+
+integrations:
+
+up:
+  - node:
+      version: v8.10.0
+      yarn: true
+
