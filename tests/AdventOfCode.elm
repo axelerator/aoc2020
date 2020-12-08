@@ -12,6 +12,7 @@ import Day5
 import Day5Input
 import Day6
 import Day6Input
+import Day8
 import Expect exposing (Expectation, fail, pass)
 import Fuzz exposing (Fuzzer, int, list, string)
 import List exposing (map)
@@ -150,6 +151,20 @@ expectOkWith res expect =
 
         Ok value ->
             expect value
+
+
+suite8 : Test
+suite8 =
+    describe "Day8"
+        [ test "Can solve part 1 with test data "
+            (\_ -> Expect.equal 5 (Day8.solve1 Day8.test))
+        , test "Can solve part 1 with actual data "
+            (\_ -> Expect.equal 1744 (Day8.solve1 Day8.actual))
+        , test "Can solve part 2 with test data "
+            (\_ -> Expect.equal 8 (Day8.solve2 Day8.test2))
+        , test "Can solve part 2 with actual data "
+            (\_ -> Expect.equal 1174 (Day8.solve2 Day8.actual))
+        ]
 
 
 suite5 : Test
