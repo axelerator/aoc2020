@@ -99,51 +99,7 @@ numbersWithout indices indexedNumbers =
 
 traverse2 : Int -> Set Int -> List Int -> List ( Int, Int ) -> Int
 traverse2 target alreadyMissing otherOptionals indexedNumbers =
-    let
-        _ =
-            Debug.log "target" target
-
-        _ =
-            Debug.log "alreadyMissing" alreadyMissing
-
-        _ =
-            Debug.log "otherOptionals" otherOptionals
-
-        mkCandidate (( o1, o2 ) as pair) =
-            ( pair
-            , numbersWithout
-                (Set.union alreadyMissing <| Set.fromList [ o1, o2 ])
-                indexedNumbers
-            )
-
-        pairs =
-            uniquePairs otherOptionals
-
-        candidates =
-            map mkCandidate pairs
-
-        f ( ( o1, o2 ), candidate ) =
-            if valid target candidate then
-                let
-                    nextMissing =
-                        Set.insert idx alreadyMissing
-
-                    leftOptionals =
-                        filter ((/=) idx) otherOptionals
-
-                    _ =
-                        Debug.log "valid" ( idx, candidate )
-                in
-                1 + traverse2 target nextMissing leftOptionals indexedNumbers
-
-            else
-                let
-                    _ =
-                        Debug.log "not valid" ( idx, candidate )
-                in
-                0
-    in
-    sum <| map f candidates
+    0
 
 
 type alias Context =
