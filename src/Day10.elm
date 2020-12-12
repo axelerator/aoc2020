@@ -1,6 +1,6 @@
 module Day10 exposing (..)
 
-import List exposing (drop, filter, foldl, head, length, map, maximum, member, minimum, reverse, sort, sum, take)
+import List exposing (concat, drop, filter, foldl, head, length, map, maximum, member, minimum, reverse, sort, sum, take)
 import List.Extra exposing (find, splitAt, takeWhile, unique, uniquePairs)
 import Maybe.Extra exposing (values)
 import Set exposing (Set)
@@ -58,7 +58,7 @@ valid target numbers =
 
 
 solve3 input =
-    0
+    solve3_ <| sort <| parseNumbers input
 
 
 solve3_ numbers =
@@ -73,15 +73,43 @@ solve3_ numbers =
 
                 _ ->
                     -1
+
+        _ =
+            Debug.log "optionals" optionals
     in
-    1
-        + (traverse2
+    length optionals
+        + (traverse3
             target
-            Set.empty
             optionals
+            Set.empty
            <|
             List.indexedMap Tuple.pair numbers
           )
+
+
+traverse3 : Int -> List Int -> Set Int -> List ( Int, Int ) -> Int
+traverse3 target optionals alreadyMissing indexedNumbers =
+    0
+
+
+combos : List Int -> List (List Int)
+combos numbers =
+    case numbers of
+        [] ->
+            []
+
+        i :: [] ->
+            [ [ i ] ]
+
+        i0 :: i1 :: [] ->
+            [ [ i0, i1 ], [ i0 ], [ i1 ] ]
+
+        i :: rest ->
+            let
+                restCombos =
+                    combos rest
+            in
+            map (\c -> i :: c) restCombos
 
 
 numbersWithout : Set Int -> List ( Int, Int ) -> List Int
